@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movie</title>
+    <!-- css bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <style>
+      body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center text-white mt-5">Fetch Movie <span class="text-danger">Data Using API</span></h2>
+        <input id="search" type="text" id="disabledTextInput" class="form-control mt-5" placeholder="Disabled input">
+        <button onclick="getMovie()" type="submit" class="btn btn-danger mt-5 d-flex m-auto">GetMovie</button>
+    </div>
+
+    <div id="moviedetails"></div>
+
+    <script>
+        function getMovie() {
+            let searchTerm = document.getElementById('search').value;
+
+            fetch(`http://www.omdbapi.com/?t=${searchTerm}&apikey=933430b2`).then(Response => Response.json())
+                .then(data => {
+                    var { Title, Year, Released, Genre, Language, Poster } = data;
+                    document.getElementById('moviedetails').innerHTML = `
+                
+                <h2 class="text light text-center mt-3">${Title} ${Year}</h2>
+                <img src="${Poster}" class="mt-2 d-flex m-auto alt="">
+                <ul class="text light text-center list-unstyled mt-3">
+
+                    <li><strong>Release:</strong>${Released}</li>
+                    <li><strong>Genre:</strong>${Genre}</li>
+                    <li><strong>Language:</strong>${Language}</li>
+        
+                    </ul>
+                
+                
+                
+                
+                
+                `
+                }
+
+
+
+                )
+
+        };
+    </script>
+</body>
+
+</html>
